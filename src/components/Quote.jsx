@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 
 const Quote = () => {
   const [quote, setQuote] = useState(null);
-  const [author,setAuthor]=useState(null)
+  const [author,setAuthor]=useState(null);
+  const [category,setCategory]=useState(null)
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`https://api.api-ninjas.com/v1/quotes?category=life`, {
+      const response = await fetch(`https://api.api-ninjas.com/v1/quotes?category=`+category, {
         headers: {
           'X-Api-Key': 'LMIJhZ15L7hB3lXRecLrUQ==y4U8dcEyt3PGG8xX'
         }
@@ -15,6 +16,7 @@ const Quote = () => {
       if (data && data.length > 0) {
         setQuote(data[0].quote);
         setAuthor(data[0].author);
+        setCategory(data[0].category);
       }
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -34,15 +36,12 @@ const Quote = () => {
       <div name="quotes" className='w-full h-screen bg-gradient-to-b from-gray-800 to-black text-white'>
         <div className='max-w-screen-lg p-4 mx-auto flex flex-col justify-center w-full h-full'>
           <div className='pb-8'>
-          <p className='text-4xl font-bold inline border-b-4 border-gray-500'>Popular Quotes</p>
+          <p className='text-4xl font-bold inline border-b-4 border-gray-500'> Quotes of:  {author}</p>
           </div>
         <p className='text-xl mt-10'>
         {quote}
         </p>
         <br />
-        <p className='text-3xl'>
-          {author}
-        </p>
         <br />
 
         <div>
