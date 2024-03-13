@@ -7,7 +7,7 @@ const Quote = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`https://api.api-ninjas.com/v1/quotes?category=`+category, {
+      const response = await fetch(`https://api.api-ninjas.com/v1/quotes?category=life`, {
         headers: {
           'X-Api-Key': 'LMIJhZ15L7hB3lXRecLrUQ==y4U8dcEyt3PGG8xX'
         }
