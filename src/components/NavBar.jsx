@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { FaBars, FaTimes } from "react-icons/fa";
 import { Link, Outlet } from "react-router-dom";
 
 const NavBar = () => {
