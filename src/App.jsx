@@ -1,27 +1,32 @@
-import { useState } from 'react'
-import './App.css'
-import NavBar from './components/NavBar'
-import Home from './components/Home'
-import Social from "./components/Social"
-import About from "./components/About"
-import Portfolio from './components/Portfolio'
-import Experience from './components/Experience'
-import Contact from './components/Contact'
-import Quote from './components/Quote'
+import "./App.css";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Experience from "./pages/Experience";
+import Contact from "./pages/Contact";
+import Quote from "./pages/Quote";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import NavBar from "./components/NavBar";
+import Social from "./components/Social";
 
 function App() {
   return (
-   <div>
-    <NavBar/>
-    <Home/>
-    <Social/>
-    <About/>
-    <Quote/>
-    <Portfolio/>
-    <Experience/>
-    <Contact/>
-   </div>
-  )
+    <BrowserRouter>
+      <NavBar />
+      <Social />
+      <Home />
+      <About />
+      <Quote />
+      <Experience />
+      <Contact />
+      <Routes>
+        <Route pathname="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/quote" element={<Quote />} />
+        <Route path="/experience" element={<Experience />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
