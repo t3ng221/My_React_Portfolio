@@ -1,14 +1,11 @@
 {
   "name": "my-react-portfolio",
   "private": true,
-  "homepage": "https://github.com/t3ng221/My_React_Portfolio",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
-    "build": "vite build && @powershell copy dist/index.html dist/404.html",
+    "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
