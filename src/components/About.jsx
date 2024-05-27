@@ -1,22 +1,38 @@
-import React from 'react'
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { api } from "../config/variable";
+import Loader from "./loader";
 
 const About = () => {
+  const [about, setAbout] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await axios.get(
+        `${api}/getAboutInfo/5ae8c037-74dc-496a-bb48-db9ecd7e84c3`
+      );
+      setAbout(res.data.data.about);
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
   return (
-    <div name="about" className='w-full h-screen bg-gradient-to-b from-gray-800 to-black text-white'>
-      <div className='max-w-screen-lg p-4 mx-auto flex flex-col justify-center w-full h-full'>
-        <div className='pb-8'>
-        <p className='text-4xl font-bold inline border-b-4 border-gray-500'>About</p>
+    <div
+      name="about"
+      className="w-full h-screen bg-gradient-to-b from-gray-800 to-black text-white"
+    >
+      <div className="max-w-screen-lg p-4 mx-auto flex flex-col justify-center w-full h-full">
+        <div className="pb-8">
+          <p className="text-4xl font-bold inline border-b-4 border-gray-500">
+            About
+          </p>
         </div>
-      <p className='text-xl mt-20'>
-      I am currently working as a Junior Data Analyst in Ecomclips. Here I have to organize business data for Amazon sellers like inventory reporting, PPC reporting, payments reporting, and business sales reporting, and make decisions depending on the data. I had to provide simple and understandable data from raw files of business so that clients could easily apply strategy depending on the data.
-      </p>
-      <br />
-      <p className='text-xl'>
-      I learned to make reports where the business owner will have a proper understanding of the business growth. I also had to do Amazon market research to have accurate knowledge of the business competitors and how our clients can compete with them in the market. I had to also conduct meetings with clients regarding different data scenarios and my findings.
-      </p>
+        <p className="text-xl mt-20">{loading ? <Loader /> : about}</p>
+        <br />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default About
+export default About;
