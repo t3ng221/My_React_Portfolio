@@ -1,73 +1,60 @@
-import React from "react";
-import html from "../assets/experience/html.png";
-import css from "../assets/experience/css.png";
-import js from "../assets/experience/js.png";
-import github from "../assets/experience/github.png";
-import reactImg from "../assets/experience/react.png";
-import twn from "../assets/experience/tailwind.png";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { api } from "../config/variable";
+import Loader from "./loader";
 
 const Experience = () => {
-  const techs = [
-    {
-      id: 1,
-      src: html,
-      title: "HTML",
-      style: "shadow-orange-500",
-    },
-    {
-      id: 2,
-      src: css,
-      title: "CSS",
-      style: "shadow-blue-500",
-    },
-    {
-      id: 3,
-      src: js,
-      title: "JavaScript",
-      style: "shadow-yellow-500",
-    },
-    {
-      id: 4,
-      src: reactImg,
-      title: "React",
-      style: "shadow-blue-600",
-    },
-    {
-      id: 5,
-      src: twn,
-      title: "Tailwind",
-      style: "shadow-sky-400",
-    },
-    {
-      id: 6,
-      src: github,
-      title: "Github",
-      style: "shadow-gray-600",
-    },
-  ];
+  const [experiences, setExperiences] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(`${api}/experience`);
+        setExperiences(res.data.data.experiences);
+      } catch (error) {
+        console.error("Error fetching experiences:", error);
+        setError("Error fetching data. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <div
       name="experience"
-      className="bg-gradient-to-b from-gray-800 to-black w-full h-screen"
+      className="w-full min-h-screen bg-gradient-to-b from-black to-gray-800 text-white p-8"
     >
-      <div className="max-w-screen-lg mx-auto p-4 flex flex-col justify-center w-full h-full text-white">
-        <div>
-          <p className="text-4xl font-bold border-b-4 border-gray-500 p-2 inline">
-            Languages and Tools
-          </p>
-          <p className="py-6">These are the languages I have worked with</p>
-        </div>
-        <div className="w-full grid grid-cols-2 sm:grid-cols-3 gap-8 text-center py-8 px-12 sm:px-8">
-          {techs.map(({ id, src, title, style }) => (
+      <div className="max-w-screen-lg mx-auto flex flex-col justify-center h-full">
+        <h2 className="text-4xl font-bold border-b-4 border-gray-600 mt-12 mb-8 pb-2">
+          Experience
+        </h2>
+        {loading ? (
+          <Loader />
+        ) : error ? (
+          <p className="text-lg">{error}</p>
+        ) : experiences.length > 0 ? (
+          experiences.map((experience) => (
             <div
-              key={id}
-              className={`shadow-md hover:scale-105 duration-500 py-2 rounded-lg ${style}`}
+              key={experience.id}
+              className="mb-12 p-6 bg-gray-800 rounded-lg shadow-lg hover:bg-gray-700 transition duration-300"
             >
-              <img className="w-20 mx-auto" src={src} alt="" />
-              <p className="mt-4">{title}</p>
+              <h3 className="text-3xl font-semibold mb-2">
+                {experience.position} at{" "}
+                <span className="text-blue-400">{experience.name}</span>
+              </h3>
+              <p className="text-lg font-medium text-gray-400 mb-4">
+                {experience.duration}
+              </p>
+              <p className="text-lg">{experience.description}</p>
             </div>
-          ))}
-        </div>
+          ))
+        ) : (
+          <p className="text-lg">No experience available.</p>
+        )}
       </div>
     </div>
   );

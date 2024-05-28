@@ -1,10 +1,10 @@
-import React from "react";
 import NavBar from "../components/NavBar";
 import Social from "../components/Social";
 import Home from "./Home";
 import About from "./About";
-import Experience from "./Experience";
 import Contact from "./Contact";
+import Skills from "../components/Skills";
+import Experience from "../components/Experience";
 
 const HomePage = () => {
   return (
@@ -13,6 +13,7 @@ const HomePage = () => {
       <Social />
       <Home />
       <About />
+      <Skills />
       <Experience />
       <Contact />
     </>

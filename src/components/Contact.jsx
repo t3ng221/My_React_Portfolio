@@ -1,6 +1,46 @@
-import React from "react";
+import { useState } from "react";
+import axios from "axios";
+import { api } from "../config/variable"; // Update this import with your API config
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+    setSuccess(null);
+    try {
+      const res = await axios.post(`${api}/contact`, formData);
+      console.log(res);
+      setSuccess("Message sent successfully!");
+      setFormData({
+        name: "",
+        email: "",
+        message: "",
+      });
+    } catch (err) {
+      setError("Error sending message. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div
       name="contact"
@@ -11,36 +51,53 @@ const Contact = () => {
           <p className="text-4xl font-bold border-b-4 inline border-gray-500">
             Contact
           </p>
-          <p className="py-6">Contact me by submiting your message</p>
+          <p className="py-6">Contact me by submitting your message</p>
         </div>
 
         <div className="flex justify-center items-center">
-          <form action="" className="flex flex-col w-full md:w-1/2">
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col w-full md:w-1/2"
+          >
             <input
               type="text"
               name="name"
-              id=""
               placeholder="Enter Your Name"
-              className="p-2 bg-transparent border-2 rounderd-md text-white focus:outline-none"
+              value={formData.name}
+              onChange={handleChange}
+              className="p-2 bg-transparent border-2 rounded-md text-white focus:outline-none"
+              required
             />
             <input
-              type="text"
-              name="name"
-              id=""
+              type="email"
+              name="email"
               placeholder="Enter Your Email"
-              className="my-4 p-2 bg-transparent border-2 rounderd-md text-white focus:outline-none"
+              value={formData.email}
+              onChange={handleChange}
+              className="my-4 p-2 bg-transparent border-2 rounded-md text-white focus:outline-none"
+              required
             />
             <textarea
-              placeholder="Enter Your Message"
               name="message"
               rows="10"
+              placeholder="Enter Your Message"
+              value={formData.message}
+              onChange={handleChange}
               className="p-2 bg-transparent border-2 rounded-md text-white focus:outline-none"
+              required
             ></textarea>
-            <button className="text-white bg-gradient-to-b from-cyan-500 to-blue-500 px-6 py-3 my-8 mx-auto flex items-center rounded-md hover:scale-110 duration-300">
-              Send Message
+            <button
+              type="submit"
+              className="text-white bg-gradient-to-b from-cyan-500 to-blue-500 px-6 py-3 my-8 mx-auto flex items-center rounded-md hover:scale-110 duration-300"
+              disabled={loading}
+            >
+              {loading ? "Sending..." : "Send Message"}
             </button>
           </form>
         </div>
+
+        {error && <p className="text-red-500 text-center">{error}</p>}
+        {success && <p className="text-green-500 text-center">{success}</p>}
       </div>
     </div>
   );

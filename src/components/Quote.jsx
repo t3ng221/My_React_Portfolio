@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import useFetch from "../hooks/customHook";
 
 const Quote = () => {
@@ -47,9 +47,6 @@ const Quote = () => {
     fetchData();
   };
 
-  // useEffect(() => {
-  //   fetchData();
-  // }, []); // Fetch data on component mount
 
   return (
     <div

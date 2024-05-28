@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { IoMdArrowRoundForward } from "react-icons/io";
 import PersonImage from '../assets/images/person.jpg';
 

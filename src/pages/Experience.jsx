@@ -1,14 +1,14 @@
-import React from "react";
-import ExperienceComponent from "../components/Experience";
+
+import Experience from "../components/Experience";
 import NavBar from "../components/NavBar";
 
-const Experience = () => {
+const Experiences = () => {
   return (
     <>
       <NavBar />
-      <ExperienceComponent />
+      <Experience />
     </>
   );
 };
 
-export default Experience;
+export default Experiences;

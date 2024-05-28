@@ -19,6 +19,9 @@ const NavBar = () => {
               <Link to="/quote">Quote</Link>
             </li>
             <li className="px-4 cursor-pointer font-medium text-gray-500 hover:scale-105 duration-200">
+              <Link to="/skills">Skills</Link>
+            </li>
+            <li className="px-4 cursor-pointer font-medium text-gray-500 hover:scale-105 duration-200">
               <Link to="/experience">Experience</Link>
             </li>
             <li className="px-4 cursor-pointer font-medium text-gray-500 hover:scale-105 duration-200">

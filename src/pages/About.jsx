@@ -1,4 +1,4 @@
-import React from "react";
+
 import AboutComponent from "../components/About";
 import NavBar from "../components/NavBar";
 

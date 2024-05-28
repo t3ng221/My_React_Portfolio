@@ -10,7 +10,7 @@ const About = () => {
   useEffect(() => {
     const fetchData = async () => {
       const res = await axios.get(
-        `${api}/getAboutInfo/5ae8c037-74dc-496a-bb48-db9ecd7e84c3`
+        `${api}/getaboutInfo/704917d8-2854-41b3-b38d-f9f80eebbc34`
       );
       setAbout(res.data.data.about);
       setLoading(false);
