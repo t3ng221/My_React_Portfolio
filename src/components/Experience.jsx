@@ -6,19 +6,12 @@ import Loader from "./loader";
 const Experience = () => {
   const [experiences, setExperiences] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const res = await axios.get(`${api}/experience`);
-        setExperiences(res.data.data.experiences);
-      } catch (error) {
-        console.error("Error fetching experiences:", error);
-        setError("Error fetching data. Please try again later.");
-      } finally {
-        setLoading(false);
-      }
+      const res = await axios.get(`${api}/experience`);
+      setExperiences(res.data.data.experiences);
+      setLoading(false);
     };
     fetchData();
   }, []);
@@ -34,8 +27,6 @@ const Experience = () => {
         </h2>
         {loading ? (
           <Loader />
-        ) : error ? (
-          <p className="text-lg">{error}</p>
         ) : experiences.length > 0 ? (
           experiences.map((experience) => (
             <div
